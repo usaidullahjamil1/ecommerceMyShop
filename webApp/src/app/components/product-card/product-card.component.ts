@@ -56,7 +56,7 @@ export class ProductCardComponent {
     if (!this.isProductInCart(product._id!)) {
       this.cartService.addToCart(product._id!, 1).subscribe(() => {
         this.cartService.init();
-        alert('product added to cart');
+        alert('Product added to cart');
       });
     } else {
       this.cartService.removeFromCart(product._id!).subscribe(() => {
