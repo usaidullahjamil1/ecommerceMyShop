@@ -1,0 +1,49 @@
+<div class="py-10 px-20">
+  <h3 class="text-3xl">Orders</h3>
+  @for (order of orders; track $index) {
+    <div class="mb-10 shadow-md rounded">
+      <div class="px-5">
+        <h6><span class="text-bold">Order Id:</span> {{ order._id }}</h6>
+        <h6>Date: {{ order.date | date: "mediumDate" }}</h6>
+        <p>Order Status:{{ order.status }}</p>
+      </div>
+      @for (item of order.items; track $index) {
+        <div class="flex items-center p-4">
+          <!-- Product Image -->
+          <img
+            [src]="item.product.images[0]"
+            alt="{{ item.product.name }}"
+            class="w-24 h-24 object-contain rounded-lg bg-gray-100"
+          />
+
+          <!-- Product Info -->
+          <div class="flex-1 ml-4">
+            <h2 class="text-lg font-semibold text-gray-800">
+              {{ item.product.name }}
+            </h2>
+            <p class="text-gray-500 text-sm">
+              {{ item.product.shortDescription }}
+            </p>
+          </div>
+
+          <!-- Quantity Controls -->
+
+          <!-- Original Price -->
+          <div class="w-24 text-center text-gray-500 line-through">
+            Rs {{ item.product.price }}
+          </div>
+
+          <!-- Discount -->
+          <div class="w-24 text-center text-red-600 font-medium">
+            {{ item.product.discount }}%
+          </div>
+
+          <!-- Final Price -->
+          <div class="w-24 text-center text-gray-800 font-semibold">
+            Rs {{ sellingPrice(item.product) * item.quantity }}
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

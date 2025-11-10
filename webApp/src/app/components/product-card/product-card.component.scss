@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 350px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.indigoColor {
+  color: #3f51b5;
+}
+.boldText {
+  font-size: medium;
+  font-weight: 700;
+}

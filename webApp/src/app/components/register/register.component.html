@@ -1,0 +1,67 @@
+<div class="mt-5 pt-5">
+  <div class="flex justify-center">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <h2 class="text-2xl font-semibold text-center mb-6 text-gray-800">
+        Create an Account
+      </h2>
+
+      <form [formGroup]="registerForm">
+        <!-- Name -->
+        <mat-form-field class="w-full">
+          <mat-label for="name">Name:</mat-label>
+          <input
+            type="text"
+            formControlName="name"
+            matInput
+            placeholder="Enter Your Name..."
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label for="email">Email:</mat-label>
+          <input
+            type="text"
+            formControlName="email"
+            matInput
+            placeholder="Enter Your Email..."
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label for="password">Password:</mat-label>
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Enter Your Password..."
+            required
+          />
+        </mat-form-field>
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          mat-raised-button
+          class="mat-primary"
+          (click)="register()"
+          [disabled]="registerForm.invalid"
+        >
+          Register
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-600 mt-5">
+        Already have an account?
+        <a
+          href="#"
+          class="indigoColor hover:underline font-medium"
+          routerLink="/login"
+          >Login</a
+        >
+      </p>
+    </div>
+    <!-- </body>
+</html> -->
+  </div>
+</div>

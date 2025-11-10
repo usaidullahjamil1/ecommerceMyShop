@@ -1,0 +1,172 @@
+<div class="min-h-screen bg-gray-50 p-8">
+  @if (orderStep == 0) {
+    <!-- Cart Header -->
+    <h1 class="mb-8 heading">Shopping Cart</h1>
+    <!-- Cart Table -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="divide-y divide-gray-200">
+        <!-- Cart Item -->
+        @for (item of cartItems; track $index) {
+          <div class="flex items-center p-4">
+            <!-- Product Image -->
+            <img
+              [src]="item.product.images[0]"
+              alt="{{ item.product.name }}"
+              class="w-24 h-24 object-contain rounded-lg bg-gray-100"
+            />
+
+            <!-- Product Info -->
+            <div class="flex-1 ml-4">
+              <h2 class="text-lg font-semibold text-gray-800">
+                {{ item.product.name }}
+              </h2>
+              <p class="text-gray-500 text-sm">
+                {{ item.product.shortDescription }}
+              </p>
+            </div>
+
+            <!-- Quantity Controls -->
+            <div class="w-32 flex justify-center items-center">
+              <button
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-l"
+                (click)="addToCart(item.product._id!, -1)"
+              >
+                -
+              </button>
+              <span class="mx-3 w-6 text-center">{{ item.quantity }}</span>
+              <button
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-r"
+                (click)="addToCart(item.product._id!, 1)"
+              >
+                +
+              </button>
+            </div>
+
+            <!-- Original Price -->
+            <div class="w-24 text-center text-gray-500 line-through">
+              Rs {{ item.product.price }}
+            </div>
+
+            <!-- Discount -->
+            <div class="w-24 text-center text-red-600 font-medium">
+              {{ item.product.discount }}%
+            </div>
+
+            <!-- Final Price -->
+            <div class="w-24 text-center text-gray-800 font-semibold">
+              Rs {{ sellingPrice(item.product) * item.quantity }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="flex justify-end mt-8">
+      <div class="bg-white rounded-xl shadow-md p-6 w-80">
+        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+        <div class="flex justify-between mb-2">
+          <span>Total Items:</span>
+          <span class="font-medium">{{ cartItems.length }}</span>
+        </div>
+
+        <div class="flex justify-between mb-2">
+          <span>Total Quantity:</span>
+          <span class="font-medium">{{ totalQuantity }}</span>
+        </div>
+
+        <div class="flex justify-between text-lg font-semibold border-t pt-3">
+          <span>Total Amount:</span>
+          <span>Rs {{ totalAmount }}</span>
+        </div>
+
+        <button
+          (click)="checkout()"
+          mat-raised-button
+          class="mat-primary mt-4 w-full py-2"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  } @else if (orderStep == 1) {
+    <h1 class="text-3xl font-semibold mb-8">Your Order Adress</h1>
+
+    <form [formGroup]="addressForm">
+      <!-- Address -->
+      <mat-form-field class="w-full">
+        <mat-label for="name">Address:</mat-label>
+        <input
+          type="text"
+          formControlName="address1"
+          matInput
+          placeholder="Enter Your Address1..."
+          required
+        />
+      </mat-form-field>
+      <!-- Address -->
+
+      <mat-form-field class="w-full">
+        <mat-label for="name">Address 2:</mat-label>
+        <input
+          type="text"
+          formControlName="address2"
+          matInput
+          placeholder="Enter Your Address2..."
+          required
+        />
+      </mat-form-field>
+      <!-- City -->
+
+      <mat-form-field class="w-full">
+        <mat-label for="name">City:</mat-label>
+        <input
+          type="text"
+          formControlName="city"
+          matInput
+          placeholder="Enter Your City..."
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label for="name">Pin Code:</mat-label>
+        <input
+          type="number"
+          formControlName="pincode"
+          matInput
+          placeholder="Enter Your PinCode..."
+          required
+        />
+      </mat-form-field>
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        mat-raised-button
+        class="mat-primary"
+        (click)="addAddress()"
+        [disabled]="addressForm.invalid"
+      >
+        Continue
+      </button>
+    </form>
+  } @else if (orderStep == 2) {
+    <h1 class="heading mb-8">Select Payment Method</h1>
+    <div class="p-30 shadow">
+      <mat-radio-group [(ngModel)]="paymentType">
+        <mat-radio-button value="cash">Cash</mat-radio-button>
+        <mat-radio-button value="card" [disabled]="true">Card</mat-radio-button>
+      </mat-radio-group>
+      <br />
+      <button
+        type="submit"
+        mat-raised-button
+        class="mat-primary"
+        (click)="completeOrder()"
+      >
+        Continue
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,124 @@
+<div class="px-40 mt-10 flex flex-col justify-center">
+  @if (id) {
+    <h1 class="heading">Update Product</h1>
+  } @else {
+    <h1 class="heading">Add New Product</h1>
+  }
+  <form action="" class="shadow p-4" [formGroup]="productForm">
+    <div class="flex flex-wrap">
+      <mat-form-field class="w-full">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId">
+          @for (item of categories; track $index) {
+            <mat-option [value]="item._id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Brand</mat-label>
+        <mat-select formControlName="brandId">
+          @for (item of brands; track $index) {
+            <mat-option [value]="item._id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- name -->
+      <mat-form-field class="w-full">
+        <mat-label> Name: </mat-label>
+        <input type="text" matInput formControlName="name" />
+      </mat-form-field>
+
+      <!-- Short Description -->
+      <mat-form-field class="w-full">
+        <mat-label> Short Description: </mat-label>
+        <input type="text" matInput formControlName="shortDescription" />
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field class="w-full">
+        <mat-label> Description: </mat-label>
+        <textarea
+          type="text"
+          matInput
+          rows="5"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+
+      <!-- Price -->
+      <mat-form-field class="w-full">
+        <mat-label> Price </mat-label>
+        <input type="number" matInput formControlName="price" />
+      </mat-form-field>
+
+      <!-- Discount -->
+      <mat-form-field class="w-full">
+        <mat-label> Discount </mat-label>
+        <input type="number" matInput formControlName="discount" />
+      </mat-form-field>
+
+      <!-- featured/new  -->
+      <div>
+        <mat-checkbox formControlName="isFeatured"
+          >Featured Product</mat-checkbox
+        >
+
+        <mat-checkbox formControlName="isNewProduct">New Product</mat-checkbox>
+      </div>
+
+      <!-- image -->
+      <div class="flex w-full flex-col" formArrayName="images">
+        <div class="flex justify-between">
+          <h4>Images</h4>
+
+          <button mat-raised-button color="primary" (click)="addImage()">
+            Add Image
+          </button>
+
+          <button mat-raised-button color="primary" (click)="removeImage()">
+            Remove
+          </button>
+        </div>
+        @for (item of images.controls; track $index) {
+          <div class="flex justify-between align-center">
+            <mat-form-field class="w-full">
+              <mat-label> Image {{ $index + 1 }} </mat-label>
+              <input type="text" matInput [formControlName]="$index" />
+            </mat-form-field>
+
+            <!-- <button
+        mat-raised-button
+        color="primary"
+        (click)="removeImage()"
+      >
+        Remove
+      </button> -->
+          </div>
+        }
+      </div>
+    </div>
+    <div class="flex flex-center">
+      @if (id) {
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="updateProduct()"
+          [disabled]="productForm.invalid"
+        >
+          Update Product
+        </button>
+      } @else {
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addProduct()"
+          [disabled]="productForm.invalid"
+        >
+          Add Product
+        </button>
+      }
+    </div>
+  </form>
+</div>

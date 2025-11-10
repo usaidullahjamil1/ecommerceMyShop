@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.indigoColor {
+  color: #3f51b5;
+}
+
+.white {
+  color: #f8f8f8;
+}

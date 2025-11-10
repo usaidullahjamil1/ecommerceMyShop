@@ -1,0 +1,94 @@
+// Variables
+$primary-color: #3f51b5;
+$text-color: #333;
+$white: #f8f8f8;
+$border-color: #ddd;
+$font-stack: "Poppins", sans-serif;
+
+.footer {
+  background-color: $primary-color;
+  color: $text-color;
+  font-family: $font-stack;
+  padding-top: 5px;
+  border-top: 1px solid $border-color;
+
+  // Upper section of footer
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; // keeps layout clean on smaller screens
+    padding: 10px 20px;
+
+    // Logo
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $white;
+    }
+
+    // Footer navigation links
+    .footer-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+
+      li {
+        a {
+          text-decoration: none;
+          color: $text-color;
+          font-weight: 500;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $white;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+          }
+        }
+      }
+    }
+
+    // Social media icons
+    .footer-socials {
+      display: flex;
+      gap: 20px;
+
+      a {
+        color: $text-color;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  // Bottom bar section
+  .footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+  }
+
+  // Responsive styles
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer-socials {
+        justify-content: center;
+      }
+    }
+  }
+}

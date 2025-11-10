@@ -1,0 +1,62 @@
+<header class="header">
+  <div class="top-bar flex items-center justify-between px-6 py-3">
+    <!-- logo  -->
+    <div class="logo cursor-pointer text-2xl font-bold white" routerLink="/">
+      MyShop
+    </div>
+    <!-- search  -->
+    @if (authService.isLoggedIn) {
+      <div class="search_bar flex">
+        <input
+          type="text"
+          placeholder="Search..."
+          (keyup.enter)="onSearch($event)"
+          [(ngModel)]="searchTerm"
+          class="w-full px-3 py-2 rounded-l text-white"
+        />
+        <button type="submit">
+          <i class="fas fa-search px-4 py-2 rounded-r"></i>
+        </button>
+      </div>
+    }
+    <!-- icons  -->
+    <div class="flex items-center gap-3 ">
+      @if (authService.isAdmin) {
+        <a routerLink="/admin">{{ authService.userName }}</a>
+      } @else {
+        <a routerLink="/profile">{{ authService.userName }}</a>
+      }
+      <div class="profile">
+        @if (authService.isLoggedIn) {
+          @if (!authService.isAdmin) {
+            <a routerLink="/wishlist">
+              <mat-icon class="text-red-600">favorite_border</mat-icon>
+            </a>
+            <a routerLink="/cart">
+              <mat-icon class="text-white">shopping_cart</mat-icon>
+            </a>
+            <a routerLink="/orders"> Orders </a>
+          }
+          <button (click)="logout()">Logout</button>
+        } @else {
+          <button routerLink="/login">Login</button>
+          /
+          <button routerLink="/register">Register</button>
+        }
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  @if (authService.isLoggedIn) {
+    <nav class="category-bar">
+      <ul>
+        @for (category of categoryList; track $index) {
+          <li (click)="searchCategory(category._id!)" class="cursor-pointer">
+            <a>{{ category.name }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+</header>
